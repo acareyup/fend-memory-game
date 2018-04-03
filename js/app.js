@@ -50,7 +50,8 @@ function shuffle(array) {
 
  function openCard(card) {
      card.addEventListener("click", function () {
-         card.classList.add("show", "open");
+         card.classList.toggle("show");
+         card.classList.toggle("open");
      })
  }
 
@@ -59,30 +60,28 @@ function shuffle(array) {
          let clicked_icon = this.firstElementChild.getAttribute("class");
          openCards.push(clicked_icon);
      })
+}  
+ 
+ function checkList(el){
+     el.addEventListener("click", function () {
+         console.log(openCards);
+         if (openCards.length === 2) {
+             if (openCards[0] === openCards[1]) {
+                 let match_check = document.querySelectorAll(".open");
+                 match_check.forEach(function (params) {
+                     params.classList.remove("open", "show");
+                     params.classList.add("match");
+                 });
+                 openCards = [];
+             } else { setTimeout(() => {
+                 let match_check = document.querySelectorAll(".open");
+                 match_check.forEach(function name(params) {
+                     params.classList.remove("show", "open");
+                 });
+                 openCards = [];
+             }, 1000);
+                 
+             }
+         } 
+     }) 
  }
-
-function checkList(el) {
-    el.addEventListener("click", function () {
-        console.log(openCards);
-        if (openCards.length === 2) {
-            if (openCards[0] === openCards[1]) {
-                let match_check = document.querySelectorAll(".open");
-                console.log("match");
-                match_check.forEach(function (params) {
-                    params.classList.remove("open", "show");
-                    params.classList.add("match");
-                });
-                openCards = [];
-            } else {
-                setTimeout(() => {
-                    let match_check = document.querySelectorAll(".open");
-                    match_check.forEach(function name(params) {
-                        params.classList.remove("show", "open");
-                    });
-                    openCards = [];
-                }, 1000);
-
-            }
-        }
-    })
-}
