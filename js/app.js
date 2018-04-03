@@ -42,14 +42,19 @@ function shuffle(array) {
  */
 
  let openCards = [];
+ let counter = 0;
  cards.forEach(function (el) {
     openCard(el);
     addCard(el);
     checkList(el);
  })
-
+ 
  function openCard(card) {
      card.addEventListener("click", function () {
+         counter++;
+         let moves = document.getElementsByClassName("moves");
+         moves[0].textContent = counter;
+         console.log(typeof(counter));
          card.classList.toggle("show");
          card.classList.toggle("open");
      })
@@ -64,7 +69,6 @@ function shuffle(array) {
  
  function checkList(el){
      el.addEventListener("click", function () {
-         console.log(openCards);
          if (openCards.length === 2) {
              if (openCards[0] === openCards[1]) {
                  let match_check = document.querySelectorAll(".open");
