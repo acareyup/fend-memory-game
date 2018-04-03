@@ -49,6 +49,27 @@ function shuffle(array) {
     checkList(el);
  })
 
+const resetButton = document.querySelector(".restart");
+resetButton.addEventListener("click", function(){
+    let moves = document.getElementsByClassName("moves");
+    moves[0].textContent = 0;
+    counter = 0;
+    openCards=[];
+    shuffle(iconArray);
+    let arr = document.querySelectorAll(".match");
+    arr.forEach(function (params) {
+        params.classList.remove("match");
+    });
+    let show = document.querySelectorAll(".open");
+    show.forEach(function (params) {
+        params.classList.remove("show","open");
+    });
+    const stars = document.querySelectorAll(".fa-star");
+    stars.forEach(function (params) {
+        params.style.color = "black";
+    })
+})
+
  function star() {
      const stars = document.querySelectorAll(".fa-star");
      if (counter < 20) {
