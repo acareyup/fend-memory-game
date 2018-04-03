@@ -48,15 +48,33 @@ function shuffle(array) {
     addCard(el);
     checkList(el);
  })
+
+ function star() {
+     const stars = document.querySelectorAll(".fa-star");
+     if (counter < 20) {
+         stars.forEach(function (el) {
+             el.style.color = "orange";
+         })
+     } else if (counter < 35){
+         stars[0].style.color= "orange";
+         stars[1].style.color= "orange";
+         stars[2].style.color = "black"
+
+     } else  {
+         stars[0].style.color = "orange"; 
+         stars[1].style.color = "black"        
+     }
+ }
+
  
  function openCard(card) {
      card.addEventListener("click", function () {
          counter++;
          let moves = document.getElementsByClassName("moves");
          moves[0].textContent = counter;
-         console.log(typeof(counter));
          card.classList.toggle("show");
          card.classList.toggle("open");
+         star();
      })
  }
 
