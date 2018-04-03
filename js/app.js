@@ -116,6 +116,7 @@ resetButton.addEventListener("click", function(){
                      params.classList.add("match");
                  });
                  openCards = [];
+                 complete();
              } else { setTimeout(() => {
                  let match_check = document.querySelectorAll(".open");
                  match_check.forEach(function name(params) {
@@ -127,4 +128,13 @@ resetButton.addEventListener("click", function(){
              }
          } 
      }) 
+ }
+
+ function complete() {
+    const arr = document.querySelectorAll(".match");
+    if (arr.length === 16){
+        setTimeout(() => {
+            alert("you complete the challenge");
+        }, 750)
+    }
  }
