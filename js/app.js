@@ -4,20 +4,17 @@
 let iconArray = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", 
     "fa fa-bolt", "fa fa-bolt", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-cube", "fa fa-cube", "fa fa-bomb", "fa fa-bomb"]
 
-const cards = document.querySelectorAll(".card");
-shuffle(iconArray);
-
-for (let i = 0; i < cards.length; i++) {
-    cards[i].firstElementChild.setAttribute("class", iconArray[i])  
-}
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
+const cards = document.querySelectorAll(".card");
+shuffle(iconArray);
+for (let i = 0; i < cards.length; i++) {
+    cards[i].firstElementChild.setAttribute("class", iconArray[i])
+}
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -33,7 +30,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -44,3 +40,49 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ let openCards = [];
+ cards.forEach(function (el) {
+    openCard(el);
+    addCard(el);
+    checkList(el);
+ })
+
+ function checkList(el){
+     el.addEventListener("click", function () {
+         console.log(openCards);
+         if (openCards.length === 2) {
+             if (openCards[0] === openCards[1]) {
+                 let match_check = document.querySelectorAll(".open");
+                 console.log("match");
+                 match_check.forEach(function (params) {
+                     params.classList.remove("open", "show");
+                     params.classList.add("match");
+                 });
+                 openCards = [];
+             } else { setTimeout(() => {
+                 let match_check = document.querySelectorAll(".open");
+                 match_check.forEach(function name(params) {
+                     params.classList.remove("show", "open");
+                 });
+                 openCards = [];
+             }, 1000);
+                 
+             }
+         } 
+     }) 
+ }
+
+ function openCard(card) {
+     card.addEventListener("click", function () {
+         card.classList.add("show", "open");
+     })
+ }
+
+ function addCard(el) {
+     el.addEventListener("click", function () {
+         let clicked_icon = this.firstElementChild.getAttribute("class");
+         openCards.push(clicked_icon);
+     })
+ }
+
