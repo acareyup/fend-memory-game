@@ -1,8 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
-let iconArray = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", 
-    "fa fa-bolt", "fa fa-bolt", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-cube", "fa fa-cube", "fa fa-bomb", "fa fa-bomb"]
+let iconArray = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor",
+    "fa fa-bolt", "fa fa-bolt", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-cube", "fa fa-cube", "fa fa-bomb", "fa fa-bomb"
+]
 
 /*
  * Display the cards on the page
@@ -17,7 +18,8 @@ for (let i = 0; i < cards.length; i++) {
 }
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -46,13 +48,13 @@ let counter = 0;
 let starter = true;
 let timerRestart = false;
 
- cards.forEach(function (el) {
+cards.forEach(function (el) {
     openCard(el);
     addCard(el);
     checkList(el);
- })
+})
 
- //restart button functionality
+//restart button functionality
 const resetButton = document.querySelector(".restart");
 resetButton.addEventListener("click", restart);
 
@@ -79,80 +81,81 @@ function restart() {
 }
 
 //give stars depending on move counter
- function star() {
-     const stars = document.querySelectorAll(".fa-star");
-     if (counter < 20) {
-         stars.forEach(function (el) {
-             el.style.color = "orange";
-         })
-     } else if (counter < 35){
-         stars[0].style.color= "orange";
-         stars[1].style.color= "orange";
-         stars[2].style.color = "black"
+function star() {
+    const stars = document.querySelectorAll(".fa-star");
+    if (counter < 20) {
+        stars.forEach(function (el) {
+            el.style.color = "orange";
+        })
+    } else if (counter < 35) {
+        stars[0].style.color = "orange";
+        stars[1].style.color = "orange";
+        stars[2].style.color = "black"
 
-     } else  {
-         stars[0].style.color = "orange"; 
-         stars[1].style.color = "black"        
-     }
- }
+    } else {
+        stars[0].style.color = "orange";
+        stars[1].style.color = "black"
+    }
+}
 
- //open the cards 
- function openCard(card) {
-     card.addEventListener("click", function () {
-         if (openCards.length < 2){
-             counter++;
-             let moves = document.getElementsByClassName("moves");
-             moves[0].textContent = counter;
-             card.classList.toggle("show");
-             card.classList.toggle("open");
-             star();
-             if (counter === 1) timer();
-             //prevent time start again from begining
-             starter = false;
-             timerRestart = false;
-         }
-     })
- }
+//open the cards 
+function openCard(card) {
+    card.addEventListener("click", function () {
+        if (openCards.length < 2) {
+            counter++;
+            let moves = document.getElementsByClassName("moves");
+            moves[0].textContent = counter;
+            card.classList.toggle("show");
+            card.classList.toggle("open");
+            star();
+            if (counter === 1) timer();
+            //prevent time start again from begining
+            starter = false;
+            timerRestart = false;
+        }
+    })
+}
 
 //add card icons to the array
- function addCard(el) {
-     el.addEventListener("click", function () {
-         let clicked_icon = this.firstElementChild.getAttribute("class");
-         openCards.push(clicked_icon);
-     })
-}  
- 
-//check the icon array if the second clicked icon is same
- function checkList(el){
-     el.addEventListener("click", function () {
-         if (openCards.length === 2) {
-             if (openCards[0] === openCards[1]) {
-                 //if clicked icons are same change the style and empty the array
-                 let match_check = document.querySelectorAll(".open");
-                 match_check.forEach(function (params) {
-                     params.classList.remove("open", "show");
-                     params.classList.add("match");
-                 });
-                 openCards = [];
-                 complete();
-             } else { setTimeout(() => {
-                 //if clicked icons are not same close them and empty the opencards array after some time
-                 let match_check = document.querySelectorAll(".open");
-                 match_check.forEach(function name(params) {
-                     params.classList.remove("show", "open");
-                 });
-                 openCards = [];
-             }, 750);
-                 
-             }
-         } 
-     }) 
- }
+function addCard(el) {
+    el.addEventListener("click", function () {
+        let clicked_icon = this.firstElementChild.getAttribute("class");
+        openCards.push(clicked_icon);
+    })
+}
 
- //arrange message content after game finishes
- function complete() {
+//check the icon array if the second clicked icon is same
+function checkList(el) {
+    el.addEventListener("click", function () {
+        if (openCards.length === 2) {
+            if (openCards[0] === openCards[1]) {
+                //if clicked icons are same change the style and empty the array
+                let match_check = document.querySelectorAll(".open");
+                match_check.forEach(function (params) {
+                    params.classList.remove("open", "show");
+                    params.classList.add("match");
+                });
+                openCards = [];
+                complete();
+            } else {
+                setTimeout(() => {
+                    //if clicked icons are not same close them and empty the opencards array after some time
+                    let match_check = document.querySelectorAll(".open");
+                    match_check.forEach(function name(params) {
+                        params.classList.remove("show", "open");
+                    });
+                    openCards = [];
+                }, 750);
+
+            }
+        }
+    })
+}
+
+//arrange message content after game finishes
+function complete() {
     const arr = document.querySelectorAll(".match");
-    if (arr.length === 16){
+    if (arr.length === 16) {
         setTimeout(() => {
             document.querySelector(".alert-panel-hide").classList = "alert-container";
             document.querySelector(".moves-result").textContent = document.querySelector(".moves").textContent;
@@ -161,14 +164,14 @@ function restart() {
             timerRestart = true;
         }, 750)
     }
- }
+}
 //play again button functionality
- document.querySelector(".play-again").addEventListener("click",function () {
+document.querySelector(".play-again").addEventListener("click", function () {
     restart();
-    document.querySelector(".alert-container").classList = "alert-panel-hide";   
- })
+    document.querySelector(".alert-container").classList = "alert-panel-hide";
+})
 
- //timer start and reset 
+//timer start and reset 
 function timer() {
     if (starter == true) {
         let timer = 0;
@@ -195,4 +198,3 @@ function timer() {
         }, 1000);
     }
 }
-
