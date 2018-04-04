@@ -53,11 +53,13 @@ let timerRestart = false;
  })
 
 const resetButton = document.querySelector(".restart");
-resetButton.addEventListener("click", function(){
+resetButton.addEventListener("click", restart);
+
+function restart() {
     let moves = document.getElementsByClassName("moves");
     moves[0].textContent = 0;
     counter = 0;
-    openCards=[];
+    openCards = [];
     shuffle(iconArray);
     let arr = document.querySelectorAll(".match");
     arr.forEach(function (params) {
@@ -65,15 +67,15 @@ resetButton.addEventListener("click", function(){
     });
     let show = document.querySelectorAll(".open");
     show.forEach(function (params) {
-        params.classList.remove("show","open");
+        params.classList.remove("show", "open");
     });
     const stars = document.querySelectorAll(".fa-star");
     stars.forEach(function (params) {
         params.style.color = "black";
     })
     timerRestart = true;
-    timer();    
-})
+    timer();
+}
 
  function star() {
      const stars = document.querySelectorAll(".fa-star");
@@ -144,10 +146,19 @@ resetButton.addEventListener("click", function(){
     const arr = document.querySelectorAll(".match");
     if (arr.length === 16){
         setTimeout(() => {
-            alert("you complete the challenge");
+            document.querySelector(".alert-panel-hide").classList = "alert-container";
+            document.querySelector(".moves-result").textContent = document.querySelector(".moves").textContent;
+            document.querySelector(".star-result").innerHTML = document.querySelector(".stars").innerHTML;
+            document.querySelector(".total-time").textContent = document.querySelector("#timer").textContent;
+            timerRestart = true;
         }, 750)
     }
  }
+
+ document.querySelector(".play-again").addEventListener("click",function () {
+    restart();
+    document.querySelector(".alert-container").classList = "alert-panel-hide";   
+ })
 
 function timer() {
     if (starter == true) {
