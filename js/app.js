@@ -41,8 +41,11 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- let openCards = [];
- let counter = 0;
+let openCards = [];
+let counter = 0;
+let starter = true;
+let timerRestart = false;
+
  cards.forEach(function (el) {
     openCard(el);
     addCard(el);
@@ -68,6 +71,8 @@ resetButton.addEventListener("click", function(){
     stars.forEach(function (params) {
         params.style.color = "black";
     })
+    timerRestart = true;
+    timer();    
 })
 
  function star() {
@@ -96,6 +101,9 @@ resetButton.addEventListener("click", function(){
          card.classList.toggle("show");
          card.classList.toggle("open");
          star();
+         if (counter === 1) timer();
+         starter = false;
+         timerRestart = false;
      })
  }
 
@@ -138,3 +146,31 @@ resetButton.addEventListener("click", function(){
         }, 750)
     }
  }
+
+function timer() {
+    if (starter == true) {
+        let timer = 0;
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
+        window.setInterval(function () {
+            ++timer;
+            hours = Math.floor(timer / 3600);
+            minutes = Math.floor((timer - hours * 3600) / 60);
+            seconds = timer - hours * 3600 - minutes * 60;
+            if (hours < 10) hours = '0' + hours;
+            if (minutes < 10) minutes = '0' + minutes;
+            if (seconds < 10) seconds = '0' + seconds;
+            document.querySelector('#timer').textContent = minutes + ':' + seconds;
+            if (timerRestart) {
+                document.querySelector('#timer').textContent = "00:00";
+                timer = 0;
+                hours = 0;
+                minutes = 0;
+                seconds = 0;
+                return;
+            }
+        }, 1000);
+    }
+}
+
