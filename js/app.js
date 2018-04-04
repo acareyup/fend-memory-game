@@ -95,15 +95,17 @@ resetButton.addEventListener("click", function(){
  
  function openCard(card) {
      card.addEventListener("click", function () {
-         counter++;
-         let moves = document.getElementsByClassName("moves");
-         moves[0].textContent = counter;
-         card.classList.toggle("show");
-         card.classList.toggle("open");
-         star();
-         if (counter === 1) timer();
-         starter = false;
-         timerRestart = false;
+         if (openCards.length < 2){
+             counter++;
+             let moves = document.getElementsByClassName("moves");
+             moves[0].textContent = counter;
+             card.classList.toggle("show");
+             card.classList.toggle("open");
+             star();
+             if (counter === 1) timer();
+             starter = false;
+             timerRestart = false;
+         }
      })
  }
 
@@ -131,7 +133,7 @@ resetButton.addEventListener("click", function(){
                      params.classList.remove("show", "open");
                  });
                  openCards = [];
-             }, 1000);
+             }, 750);
                  
              }
          } 
