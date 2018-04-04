@@ -52,6 +52,7 @@ let timerRestart = false;
     checkList(el);
  })
 
+ //restart button functionality
 const resetButton = document.querySelector(".restart");
 resetButton.addEventListener("click", restart);
 
@@ -77,6 +78,7 @@ function restart() {
     timer();
 }
 
+//give stars depending on move counter
  function star() {
      const stars = document.querySelectorAll(".fa-star");
      if (counter < 20) {
@@ -94,7 +96,7 @@ function restart() {
      }
  }
 
- 
+ //open the cards 
  function openCard(card) {
      card.addEventListener("click", function () {
          if (openCards.length < 2){
@@ -105,12 +107,14 @@ function restart() {
              card.classList.toggle("open");
              star();
              if (counter === 1) timer();
+             //prevent time start again from begining
              starter = false;
              timerRestart = false;
          }
      })
  }
 
+//add card icons to the array
  function addCard(el) {
      el.addEventListener("click", function () {
          let clicked_icon = this.firstElementChild.getAttribute("class");
@@ -118,10 +122,12 @@ function restart() {
      })
 }  
  
+//check the icon array if the second clicked icon is same
  function checkList(el){
      el.addEventListener("click", function () {
          if (openCards.length === 2) {
              if (openCards[0] === openCards[1]) {
+                 //if clicked icons are same change the style and empty the array
                  let match_check = document.querySelectorAll(".open");
                  match_check.forEach(function (params) {
                      params.classList.remove("open", "show");
@@ -130,6 +136,7 @@ function restart() {
                  openCards = [];
                  complete();
              } else { setTimeout(() => {
+                 //if clicked icons are not same close them and empty the opencards array after some time
                  let match_check = document.querySelectorAll(".open");
                  match_check.forEach(function name(params) {
                      params.classList.remove("show", "open");
@@ -142,6 +149,7 @@ function restart() {
      }) 
  }
 
+ //arrange message content after game finishes
  function complete() {
     const arr = document.querySelectorAll(".match");
     if (arr.length === 16){
@@ -154,12 +162,13 @@ function restart() {
         }, 750)
     }
  }
-
+//play again button functionality
  document.querySelector(".play-again").addEventListener("click",function () {
     restart();
     document.querySelector(".alert-container").classList = "alert-panel-hide";   
  })
 
+ //timer start and reset 
 function timer() {
     if (starter == true) {
         let timer = 0;

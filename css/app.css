@@ -108,6 +108,9 @@ h1 {
     cursor: pointer;
 }
 
+
+/*styles for panel after game finihes */
+
 .play-again {
     width: 100px;
     height: 25px;
