@@ -128,30 +128,32 @@ function addCard(el) {
 function checkList(el) {
     el.addEventListener("click", function () {
         if (openCards.length === 2) {
-            if (openCards[0] === openCards[1]) {
-                //if clicked icons are same change the style and empty the array
-                let match_check = document.querySelectorAll(".open");
-                match_check.forEach(function (params) {
-                    params.classList.remove("open", "show");
-                    params.classList.add("match");
-                });
-                openCards = [];
-                complete();
-            } else {
-                setTimeout(() => {
-                    //if clicked icons are not same close them and empty the opencards array after some time
-                    let match_check = document.querySelectorAll(".open");
-                    match_check.forEach(function name(params) {
-                        params.classList.remove("show", "open");
-                    });
-                    openCards = [];
-                }, 750);
-
-            }
+            cardMatch();
         }
     })
 }
-
+//matching cards if two icons are same otherwise hide cards
+function cardMatch (params) {
+    if (openCards[0] === openCards[1]) {
+        //if clicked icons are same change the style and empty the array
+        let match_check = document.querySelectorAll(".open");
+        match_check.forEach(function (params) {
+            params.classList.remove("open", "show");
+            params.classList.add("match");
+        });
+        openCards = [];
+        complete();
+    } else {
+        setTimeout(() => {
+            //if clicked icons are not same close them and empty the opencards array after some time
+            let match_check = document.querySelectorAll(".open");
+            match_check.forEach(function name(params) {
+                params.classList.remove("show", "open");
+            });
+            openCards = [];
+        }, 750);
+    }
+}
 //arrange message content after game finishes
 function complete() {
     const arr = document.querySelectorAll(".match");
