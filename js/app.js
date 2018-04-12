@@ -13,9 +13,7 @@ let iconArray = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa
  */
 const cards = document.querySelectorAll(".card");
 shuffle(iconArray);
-for (let i = 0; i < cards.length; i++) {
-    cards[i].firstElementChild.setAttribute("class", iconArray[i])
-}
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length,
@@ -28,8 +26,9 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
-    return array;
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].firstElementChild.setAttribute("class", iconArray[i])
+    }
 }
 
 /*
